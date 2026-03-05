@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limbo Sonoro — Anatomia do Abismo</title>
+  <!-- Fonte elegante e sóbria -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Ícones (apenas um toque sutil) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      background-image: radial-gradient(circle at 30% 10%, #1e1a1a 0%, #030101 95%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: #e8e6e3;
+      line-height: 1.5;
+      padding: 1.5rem;
+    }
+
+    /* efeito de papel queimado / textura sutil */
+    .paper-texture {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="1" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.06"/></svg>');
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: multiply;
+      opacity: 0.2;
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      max-width: 1100px;
+      width: 100%;
+      background: rgba(12, 10, 10, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(220, 200, 180, 0.15);
+      border-radius: 32px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(240, 220, 200, 0.05);
+      padding: 2.5rem 2rem;
+    }
+
+    /* tipografia principal com serifa dramática */
+    h1, h2, h3, .slogan, .citation {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 8vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: #f2e5d8;
+      text-shadow: 0 2px 10px rgba(140, 100, 70, 0.3);
+      margin-bottom: 0.5rem;
+    }
+
+    .subhead {
+      font-size: 1.3rem;
+      color: #c7b1a2;
+      border-left: 3px solid #7f5a4b;
+      padding-left: 1.5rem;
+      margin: 1rem 0 2rem 0;
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    /* grid de conteúdo */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin: 3rem 0 2rem 0;
+    }
+
+    @media (max-width: 700px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .container {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    /* cartão com aparência tátil */
+    .card {
+      background: rgba(20, 16, 14, 0.7);
+      border-radius: 24px;
+      padding: 2rem 1.8rem;
+      border: 1px solid rgba(200, 170, 150, 0.1);
+      box-shadow: 0 10px 20px -10px rgba(0,0,0,0.8);
+      backdrop-filter: blur(4px);
+      transition: transform 0.2s ease, border-color 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(200, 170, 150, 0.3);
+      transform: translateY(-3px);
+    }
+
+    /* AVISO: discreto mas presente */
+    .content-warning {
+      background: rgba(30, 20, 18, 0.9);
+      border-left: 5px solid #6b4e44;
+      padding: 1.6rem 2rem;
+      border-radius: 18px;
+      margin: 2.5rem 0 2rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      align-items: center;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+    }
+
+    .cw-icon {
+      font-size: 2.2rem;
+      color: #a67b6b;
+      opacity: 0.7;
+    }
+
+    .cw-text {
+      flex: 1;
+    }
+
+    .cw-text p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #d9cdc4;
+      max-width: 700px;
+    }
+
+    .cw-text strong {
+      color: #e5cfc2;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .tag {
+      background: #3f2e28;
+      color: #ebd9cd;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 500;
+      border: 1px solid #7e6154;
+    }
+
+    .slogan-box {
+      background: transparent;
+      border: 1px dashed #7f5a4b;
+      border-radius: 60px;
+      padding: 0.8rem 1.8rem;
+      display: inline-block;
+      margin: 1rem 0;
+      font-size: 1.4rem;
+    }
+
+    .slogan {
+      font-size: 1.6rem;
+      line-height: 1.4;
+      color: #eedccf;
+      font-style: italic;
+    }
+
+    .slogan small {
+      font-size: 1.1rem;
+      color: #aa8e7e;
+      display: block;
+      margin-top: 0.3rem;
+      font-style: normal;
+    }
+
+    .spotify-embed {
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 30px -10px black;
+      margin: 2.2rem 0 1.5rem 0;
+      border: 1px solid rgba(255, 215, 190, 0.15);
+      transition: box-shadow 0.3s;
+    }
+
+    .spotify-embed:hover {
+      box-shadow: 0 25px 35px -8px #221712;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 352px;
+      border: none;
+    }
+
+    .memoir {
+      margin-top: 2rem;
+      padding: 1.8rem 0 0.5rem 0;
+      border-top: 1px solid rgba(170, 140, 120, 0.25);
+    }
+
+    .memoir p {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: #cbbcb2;
+      margin-bottom: 1.5rem;
+    }
+
+    .memoir strong {
+      color: #e7d7cb;
+      font-weight: 500;
+    }
+
+    .assinatura {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #cfa284;
+      text-align: right;
+      margin-top: 1rem;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #5f443a;
+      padding-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    .footer-note {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      color: #7f6a60;
+      font-size: 0.9rem;
+      border-top: 1px solid #2f221e;
+      padding-top: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-note a {
+      color: #cfa88e;
+      text-decoration: none;
+      border-bottom: 1px dotted #7f5a4b;
+    }
+
+    .footer-note a:hover {
+      color: #eac7b3;
+    }
+
+    .separator {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, #b18a76, transparent);
+      margin: 1.8rem 0;
+    }
+
+    /* elementos visuais liminares */
+    .echo {
+      position: relative;
+    }
+
+    .echo::after {
+      content: '';
+      position: absolute;
+      bottom: -10px; left: 10%;
+      width: 80%; height: 1px;
+      background: radial-gradient(circle, #6f4e3e 0%, transparent 80%);
+    }
+  </style>
+</head>
+<body>
+  <div class="paper-texture"></div>
+  <div class="container">
+    <!-- cabeçalho com identidade -->
+    <div class="echo">
+      <h1>limbo sonoro<br><span style="font-size: 0.7em; display: block; color: #bb9f90;">anatomia do abismo</span></h1>
+    </div>
+    <div class="separator"></div>
+    <div class="subhead">
+      <i class="fas fa-microphone-alt" style="margin-right: 12px; opacity: 0.7;"></i> 
+      um mergulho visceral conduzido por <strong style="color: #ebd2c2;">Alexia Melusine</strong>
+    </div>
+    
+    <!-- grid com apresentação e slogan duplo (os dois slogans propostos) -->
+    <div class="grid-2">
+      <div class="card">
+        <i class="fas fa-compass" style="font-size: 2rem; color: #a88674; margin-bottom: 1rem; display: inline-block;"></i>
+        <h3 style="font-size: 2rem; margin-bottom: 0.8rem; color: #e0cfc2;">a travessia</h3>
+        <p style="margin-bottom: 1.5rem; font-weight: 300;">Textos escritos há mais de três décadas — cápsulas de memória de uma época que insiste em ecoar. Este projeto é ponte entre o que fomos e o abismo que nos moldou.</p>
+        <div class="slogan-box" style="width: fit-content;">
+          <span class="slogan">“Onde o som é ponte para lugares onde nunca voltamos.”</span>
+        </div>
+      </div>
+      <div class="card">
+        <i class="fas fa-skull" style="font-size: 2rem; color: #a88674; margin-bottom: 1rem; display: inline-block;"></i>
+        <h3 style="font-size: 2rem; margin-bottom: 0.8rem; color: #e0cfc2;">o abismo</h3>
+        <p style="margin-bottom: 1.5rem; font-weight: 300;">Porque alguns abismos não se superam — apenas se narram. E é na narração que encontramos frestas de luz.</p>
+        <div class="slogan-box" style="width: fit-content; border-color: #9b7868;">
+          <span class="slogan">“Porque alguns abismos não se superam — apenas se narram.”</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- AVISO DE CONTEÚDO (honesto, discreto, profissional) -->
+    <div class="content-warning">
+      <div class="cw-icon"><i class="fas fa-exclamation-triangle"></i></div>
+      <div class="cw-text">
+        <span class="tag">conteúdo sensível</span>
+        <p style="margin-top: 10px;"><strong>AVISO:</strong> Este podcast contém temas como morte, colapso emocional, experiências liminares e sofrimento psíquico. O conteúdo é artístico e autobiográfico. Ouça com consciência.</p>
+      </div>
+    </div>
+
+    <!-- spotify embed (podcast) -->
+    <div class="spotify-embed">
+      <iframe src="https://open.spotify.com/embed/show/6ahRd7QT2wcq7ldt5CJHZW?utm_source=generator&theme=0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+
+    <!-- testemunho da época / narrativa autobiográfica -->
+    <div class="memoir">
+      <p><i class="fas fa-quote-left" style="color: #7f5a4b; margin-right: 8px; opacity: 0.8;"></i> 
+      <strong>“Cápsulas de memória”</strong> — esta série é um arquivo vivo de diários, cartas e fragmentos escritos entre o fim dos anos 80 e o início dos 90. Alexia Melusine recupera, em primeira pessoa, as camadas de uma existência que ousou testemunhar o próprio colapso. Cada episódio é um mergulho sem rede.
+      </p>
+      <p style="font-style: italic; color: #c9b2a3; padding-left: 20px;">
+      “O limbo não é um lugar, é uma frequência. E o som, aqui, é a única âncora possível.”
+      </p>
+      <div style="text-align: right; margin-top: 20px;">
+        <span class="assinatura"><i class="fas fa-moon" style="font-size: 1.2rem;"></i> Alexia Melusine</span>
+      </div>
+    </div>
+
+    <!-- selo de honestidade & tom profissional -->
+    <div class="footer-note">
+      <span><i class="far fa-heart" style="color: #966b58;"></i> produção independente • autobiográfico • visceral</span>
+      <span>
+        <i class="fab fa-spotify" style="color: #1DB954;"></i> 
+        <a href="https://open.spotify.com/show/6ahRd7QT2wcq7ldt5CJHZW" target="_blank" rel="noopener noreferrer">ouça no spotify</a>
+      </span>
+    </div>
+
+    <!-- linha final sutil -->
+    <div style="margin-top: 1.5rem; font-size: 0.85rem; color: #59473e; text-align: center; letter-spacing: 1.5px;">
+      ★ anatomia do abismo ★ limbo sonoro ★
+    </div>
+  </div>
+
+  <!-- pequeno script para interação extra? talvez nada invasivo, apenas um toque de movimento sutil -->
+  <script>
+    (function() {
+      // nada agressivo: pequeno efeito no título ao passar o mouse? apenas para reforçar imersão
+      const title = document.querySelector('h1');
+      if(title) {
+        title.addEventListener('mouseenter', () => {
+          title.style.transition = 'text-shadow 0.3s';
+          title.style.textShadow = '0 0 15px #8f6757, 0 0 30px #4f362c';
+        });
+        title.addEventListener('mouseleave', () => {
+          title.style.textShadow = '0 2px 10px rgba(140, 100, 70, 0.3)';
+        });
+      }
+
+      // suavizar revelação dos cards (bem discreto)
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.borderColor = 'rgba(220, 180, 150, 0.5)';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.borderColor = 'rgba(200, 170, 150, 0.1)';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
