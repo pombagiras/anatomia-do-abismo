@@ -2,7 +2,7 @@
   <br>
   <a href="https://github.com/pombagiras"><img src="https://raw.githubusercontent.com/pombagiras/melusine/refs/heads/main/Al%C3%AA%20(3)%20(3)%20(1).png" alt="Alexia Melusine" width="200" style="border-radius: 50%; box-shadow: 0 10px 25px rgba(0,0,0,0.5);"></a>
   <br>
-  abismos digitais de <span style="color: #cfa284;">Alexia Melusine</span>
+  Abismos Digitais de <span style="color: #cfa284;">Alexia Melusine</span>
   <br>
 </h1>
 
